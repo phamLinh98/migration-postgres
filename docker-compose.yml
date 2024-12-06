@@ -1,0 +1,24 @@
+version: "3.1"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5500:5432"
+    volumes:
+      - ./dbsql:/docker-entrypoint-initdb.d # Mount folder containing .sql files
+      #dbsql la thu muc chua toan bo .sql va nen de chung dung thu tu thi moi migration thanh cong (danh so 1 > 100)
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
